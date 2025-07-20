@@ -16,7 +16,7 @@ timezone: Europe/Istanbul
 
 title: Doğu K. # the main title
 
-tagline: Siber Güvenlik Meraklısı # it will display as the subtitle
+tagline: I am an aspiring cybersecurity enthusiast and a student eager to learn more. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   Kişisel Bloğum
@@ -37,7 +37,7 @@ social:
   name: Doğu Kervan
   #email: example@domain.com # change to your email address
   links:
-    # The first element serves as the copyright owner's link
+    - https://github.com/dogujen # The first element serves as the copyright owner's link
     - https://instagram.com/dogujen # change to your Twitter homepage
     - https://github.com/dogujen # change to your GitHub homepage
     # Uncomment below to add more social links
