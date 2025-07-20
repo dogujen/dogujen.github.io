@@ -102,7 +102,7 @@ password|s:32:"L7Rv00A8TuwJAr67kITxxcSgnIk25Am/";
 
 To decrypt the password, I used the following Python script:
 
-```
+<code>
 from Crypto.Cipher import DES3
 from base64 import b64decode
 def decrypt_password(encrypted_password, key="rcmail-!24ByteDESkey*Str"):
@@ -118,7 +118,7 @@ def decrypt_password(encrypted_password, key="rcmail-!24ByteDESkey*Str"):
         return f"Error: {str(e)}"
 encrypted = "L7Rv00A8TuwJAr67kITxxcSgnIk25Am/"
 print(f"Decrypted password: {decrypt_password(encrypted)}")
-```
+</code>
 
 **Output:**
 
