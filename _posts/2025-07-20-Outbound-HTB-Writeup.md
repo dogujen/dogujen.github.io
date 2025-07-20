@@ -103,7 +103,7 @@ password|s:32:"L7Rv00A8TuwJAr67kITxxcSgnIk25Am/";
 To decrypt the password, I used the following Python script:
 
 <code>
-curl https://raw.githubusercontent.com/dogujen/dogujen.github.io/refs/heads/main/assets/des-decrypt-outbound.py && python des-decrypt-outbound.py
+curl https://raw.githubusercontent.com/dogujen/dogujen.github.io/refs/heads/main/assets/des-decrypt-outbound.py -o des-decrypt-outbound.py && python des-decrypt-outbound.py
 </code>
 
 **Output:**
