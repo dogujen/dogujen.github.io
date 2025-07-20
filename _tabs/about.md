@@ -16,9 +16,9 @@ permalink: /about/
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
 
-<img alt="GitHub Stats" src="https://github-readme-stats.vercel.app/api?username=dogujen&theme=dark&hide_border=true" width="48%" />
+<img align="left" alt="GitHub Stats" src="https://github-readme-stats.vercel.app/api?username=dogujen&theme=dark&hide_border=true" width="48%" />
 
-<img alt="HTB Status Card" src="https://htb-status.vercel.app/api/htb.js?id=2433453" width="48%" />
+<img align="right" alt="HTB Status Card" src="https://htb-status.vercel.app/api/htb.js?id=2433453" width="48%" />
 
 </div>
 
