@@ -11,9 +11,6 @@ permalink: /about/
 - 🔭 Currently learning ASM  
 
 ---
-
-
-
 ## 🧠 Languages & Tools That I Know to Use
 
 <div style="display: flex; flex-wrap: wrap; gap: 0.5rem;">
@@ -29,6 +26,7 @@ permalink: /about/
 
 </div>
 ---
+
 ## 📊 Stats of My Accounts 
 
 <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
