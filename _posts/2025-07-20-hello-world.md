@@ -2,6 +2,8 @@
 layout: default
 title: "Hello World"
 date: 2025-07-20 13:54:00 +0300
+categories: [blog]
+tags: [test, jekyll]
 ---
 
 Hi.
