@@ -26,15 +26,5 @@ icon: fas fa-circle-info
 <img alt="C++" src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white"/>
 
 </div>
----
 
-## 📊 Stats of My Accounts 
-
-<div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem;">
-
-<img align="left" alt="GitHub Stats" src="https://github-readme-stats.vercel.app/api?username=dogujen&theme=dark&hide_border=true" width="48%"/>
-
-<img align="right" alt="HTB Status Card" src="https://htb-status.vercel.app/api/htb.js?id=2433453" width="48%"/>
-
-</div>
 
