@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "FlagCasino CTF Writeup"
+title: "LootStash CTF Writeup"
 date: 2025-07-21 13:54:00 +0300
 categories: [CTFs]
 tags: [cybersecurity, reverse, hackthebox, prolabs]
