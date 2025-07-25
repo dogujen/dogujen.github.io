@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "'Jumpio Adventure' CTF Writeup"
-date: 2025-07-24 00:41:00 +0300
+title: "Jumpio Adventure CTF Writeup"
+date: 2025-07-26 01:18:00 +0300
 categories: [CTFs]
 tags: [cybersecurity, reverse, hackthebox, prolabs, stacksmash]
 ---
@@ -72,10 +72,7 @@ We search for the `win()` function in the symbol table:
 
 The `win()` function is located at address `0x40154f`. Based on analysis, calling this function will print the flag using `cat flag.txt`.
 
-<pre>{% raw %}
-> [!WARNING]
-> Although we’re referencing C code examples, you can identify similar patterns at the assembly level.
-{% endraw %}</pre>
+<pre>Although we’re referencing C code examples, you can identify similar patterns at the assembly level.</pre>
 
 ---
 
