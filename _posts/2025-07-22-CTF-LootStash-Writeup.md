@@ -3,13 +3,14 @@ layout: post
 title: "LootStash CTF Writeup"
 date: 2025-07-22 13:54:00 +0300
 categories: [CTFs]
-tags: [cybersecurity, reverse, hackthebox, prolabs]
+tags: [cybersecurity, reverse, hackthebox, prolabs,tryout]
 ---
 
 # 🎰 LootStash CTF Writeup
 
 Today I’ll walk you through my process of solving the **LootStash** CTF binary. Let's dive in.
 Note: This writeup is about importance of prechecks.
+
 ---
 
 ## 📂 Opening the Zip File
@@ -37,12 +38,12 @@ undefined8 main(void)
 }
 ```
 ---
-# Understanding srand() and rand()
+## Understanding srand() and rand()
 srand() is a function for setting up a seed for rand(). Rand function will generate a string that dependent on the seed that set up in srand("seed"). This makes it predictable and reversable.
 
 ---
 
-# Finding "gear" list:
+## Finding "gear" list:
 In GDB, i can easily dump gear list.
 ```sh
 pwndbg> info variables gear
@@ -53,7 +54,7 @@ Non-debugging symbols:
 ```
 ---
 
-# Making a GDB Script For Counting gear[]
+## Making a GDB Script For Counting gear[]
 ```vb
 define count_gear
   set $i = 0
@@ -65,7 +66,7 @@ define count_gear
 end
 ```
 This will count gear size. And we can predict they store all items in gear.
-# The Real Solution :P
+## The Real Solution :P
 ---
 After that I recognize I just need to find via strings :P
 ```sh
