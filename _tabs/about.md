@@ -26,24 +26,8 @@ icon: fas fa-circle-info
 <img alt="C++" src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white"/>
 
 </div>
-# My PGP Key 
+# My PGP 
 <h5>I'll publish my email later.</h5>
 <div>
-
-```
------BEGIN PGP PUBLIC KEY BLOCK-----
-
-mFMEaH+1VRMJKyQDAwIIAQEHAgMElu3QCiEbYfYFWugLXEWG0TEEKtUWDDY8au3S
-8dtcWf4jhbcDzLEar+9GUFk6i5jHeofg8DBr2QQmkevRxRx2YrQMRG/En3UgS2Vy
-dmFuiJYEExMIAD4WIQRXqLh6mMkne7LBTf3Cp6mbZVfXNwUCaH+1VQIbAwUJlKDJ
-OwULCQgHAgYVCgkICwIEFgIDAQIeAQIXgAAKCRDCp6mbZVfXN13VAP9npYS9r1j8
-mTtEsXCm1OeDXTVz86qlN8yPjj0LfRNTEwEApBsEGVGXjTHEGZRz3AUXRMwiAb7m
-XOeo1NY99gRmWam4VwRof7VVEgkrJAMDAggBAQcCAwRHvnwLQq4xjmh7Vf41Oa0R
-a2KqbvXXf4T9a0QNwPlx0BLHUg8KLvYiOMcijWbstyyKZrrPOPhjoVpX7whK3oVA
-AwEIB4h+BBgTCAAmFiEEV6i4epjJJ3uywU39wqepm2VX1zcFAmh/tVUCGwwFCZSg
-yTsACgkQwqepm2VX1zewuQEAqGplPto1w698dkLwbVGukQAKy04sKHQ/HXqgISWo
-XzwA/REXnbJJHau13+2Qp+mwd1NpMPbKHgRrY8Ou0TFH9cQT
-=grkP
------END PGP PUBLIC KEY BLOCK-----
-```
+<a href="https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x57a8b87a98c9277bb2c14dfdc2a7a99b6557d737">Download PGP Public Key </a>
 </div>
