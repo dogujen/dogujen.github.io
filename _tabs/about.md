@@ -30,7 +30,7 @@ icon: fas fa-circle-info
 <h5>I'll publish my email later.</h5>
 <div>
 
-<code>
+```
 -----BEGIN PGP PUBLIC KEY BLOCK-----
 
 mFMEaH+1VRMJKyQDAwIIAQEHAgMElu3QCiEbYfYFWugLXEWG0TEEKtUWDDY8au3S
@@ -42,7 +42,8 @@ XOeo1NY99gRmWam4VwRof7VVEgkrJAMDAggBAQcCAwRHvnwLQq4xjmh7Vf41Oa0R
 a2KqbvXXf4T9a0QNwPlx0BLHUg8KLvYiOMcijWbstyyKZrrPOPhjoVpX7whK3oVA
 AwEIB4h+BBgTCAAmFiEEV6i4epjJJ3uywU39wqepm2VX1zcFAmh/tVUCGwwFCZSg
 yTsACgkQwqepm2VX1zewuQEAqGplPto1w698dkLwbVGukQAKy04sKHQ/HXqgISWo
-XzwA/REXnbJJHau13+2Qp+mwd1NpMPbKHgRrY8Ou0TFH9cQT=grkP
+XzwA/REXnbJJHau13+2Qp+mwd1NpMPbKHgRrY8Ou0TFH9cQT
+=grkP
 -----END PGP PUBLIC KEY BLOCK-----
-</code>
+```
 </div>
