@@ -38,4 +38,4 @@ icon: fas fa-circle-info
 
 # HTB Certificates
 
-<img alt="StackSmash PlayGround" src="https://raw.githubusercontent.com/dogujen/dogujen.github.io/refs/heads/main/assets/img/certs/myfirstcert.png" width="%45"/>
+<img alt="StackSmash PlayGround" src="https://raw.githubusercontent.com/dogujen/dogujen.github.io/refs/heads/main/assets/img/certs/myfirstcert.png" width="%20" height="%20"/>
