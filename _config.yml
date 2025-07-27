@@ -19,7 +19,7 @@ title: Blog of Doğu K. # the main title
 tagline: I am an aspiring cybersecurity enthusiast and a student eager to learn more. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
-  Kişisel Bloğum
+  My Personal blog where I am talking about CTFs. 
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
