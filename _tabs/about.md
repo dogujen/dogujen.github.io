@@ -28,7 +28,9 @@ icon: fas fa-circle-info
 ---
 
 </div>
-# My PGP 
+
+# My PGP Key
+
 <h5>I'll publish my email later.</h5>
 <div>
 <a href="https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x57a8b87a98c9277bb2c14dfdc2a7a99b6557d737">Download PGP Public Key </a>
