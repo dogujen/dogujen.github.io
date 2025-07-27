@@ -3,9 +3,6 @@
 - type: github
   icon: "fab fa-github"
 
-- type: instagram
-  icon: "fa-brands fa-instagram"
-
 - type: rss
   icon: "fas fa-rss"
   noblank: true
