@@ -25,9 +25,15 @@ icon: fas fa-circle-info
 <img alt="Ruby" src="https://img.shields.io/badge/ruby-red.svg?style=for-the-badge&logo=ruby&logoColor=white"/>
 <img alt="C++" src="https://img.shields.io/badge/C++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white"/>
 
+---
+
 </div>
 # My PGP 
 <h5>I'll publish my email later.</h5>
 <div>
 <a href="https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x57a8b87a98c9277bb2c14dfdc2a7a99b6557d737">Download PGP Public Key </a>
 </div>
+
+---
+# HTB Certificates
+<img src="https://raw.githubusercontent.com/dogujen/dogujen.github.io/refs/heads/main/assets/img/certs/myfirstcert.pdf" width="%45"/>
