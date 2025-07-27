@@ -31,7 +31,7 @@ icon: fas fa-circle-info
 
 ---
 
-# My PGP Key
+## 📋 My PGP Key
 
 <h5>I'll publish my email later.</h5>
 <div>
@@ -40,6 +40,6 @@ icon: fas fa-circle-info
 
 ---
 
-# HTB Certificates
+## 📜 HTB Certificates
 
 {% include image-gallery.html folder="/assets/img/certs" %}
