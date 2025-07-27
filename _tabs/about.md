@@ -35,5 +35,7 @@ icon: fas fa-circle-info
 </div>
 
 ---
+
 # HTB Certificates
+
 <img src="https://raw.githubusercontent.com/dogujen/dogujen.github.io/refs/heads/main/assets/img/certs/myfirstcert.pdf" width="%45"/>
