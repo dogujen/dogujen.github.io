@@ -195,7 +195,7 @@ defaults:
 
 sass:
   style: compressed
-favicon: /assets/favicon.ico
+favicon: /assets/favicons/favicon.ico
 compress_html:
   clippings: all
   comments: all
