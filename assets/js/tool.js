@@ -8,7 +8,7 @@
     "functionCaller": {
       name: "Function Caller (chr... format)",
       encrypt: (input) => {
-        return `globals()[${toChrConcat(input)}]()`;
+        return `globals()[${toChrConcat(input.replace('()','')   )}]()`;
       },
       usesXorKey: false,
       showXorKey: false
