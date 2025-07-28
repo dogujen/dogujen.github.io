@@ -9,4 +9,4 @@ icon: fas fa-tools
 
 Soon. (This page is not completed yet.)  
 
-{% include tools-script.html %}
+{% include tools.html %}
