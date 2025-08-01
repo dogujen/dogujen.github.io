@@ -15,7 +15,7 @@ Hello! Today I want to talk about a machine called **Outbound**. In my opinion, 
 ## What is CVE-2025-49113?
 <blockquote class="prompt-warning"><p>
 
-**CVE-2025-49113** is an **authenticated remote code execution (RCE)** vulnerability in **Roundcube Webmail**.
+CVE-2025-49113 is an authenticated remote code execution (RCE) vulnerability in Roundcube Webmail.
  
  </p></blockquote>
 
