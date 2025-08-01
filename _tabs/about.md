@@ -40,8 +40,6 @@ icon: fas fa-circle-info
 
 ---
 
-## 📜 HTB Certificates
+## 📜 Cyber Security Certificates
 
 {% include image-gallery.html folder="/assets/img/certs" %}
-
----
