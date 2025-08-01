@@ -8,9 +8,14 @@ customjs:
 ---
 
 
-<div id="repo-container" class="flex-grow-1 px-xl-1">
-  <div class="card p-3">Loading...</div>
+<div id="project-list">
+  <article class="card-wrapper card">
+    <div class="card-body">
+      <p>Projects are on the way...</p>
+    </div>
+  </article>
 </div>
+
 {% for js in page.customjs %}
 <script async type="text/javascript" src="{{ js }}"></script>
 {% endfor %}
