@@ -6,7 +6,7 @@
 
       repos.forEach(repo => {
         const card = document.createElement("article");
-        card.className = "card-wrapper card shadow-sm p-3";
+        card.className = "card-wrapper card";
 
         card.innerHTML = `
           <a href="${repo.html_url}" class="post-preview row g-0 flex-md-row-reverse text-decoration-none text-dark">
