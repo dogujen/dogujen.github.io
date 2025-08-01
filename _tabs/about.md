@@ -43,3 +43,5 @@ icon: fas fa-circle-info
 ## 📜 HTB Certificates
 
 {% include image-gallery.html folder="/assets/img/certs" %}
+
+---
