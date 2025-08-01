@@ -4,7 +4,7 @@ title: Projects
 permalink: /projects/
 icon: fas fa-diagram-project
 customjs:
- - https://dogujen.github.io/assets/js/tool.js
+ - https://dogujen.github.io/assets/js/projects.js
 ---
 
 <ul id="repo-list">
