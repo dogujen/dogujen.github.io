@@ -1,7 +1,7 @@
 ---
 layout: page
-title: Projects
-permalink: /projects/
+title: Repositories
+permalink: /repositories/
 icon: fas fa-diagram-project
 customjs:
  - https://dogujen.github.io/assets/js/projects.js
