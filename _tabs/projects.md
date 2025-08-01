@@ -1,5 +1,5 @@
 ---
-layout: home
+layout: page
 title: Projects
 permalink: /projects/
 icon: fas fa-diagram-project
@@ -15,6 +15,17 @@ customjs:
     </div>
   </article>
 </div>
+<style>
+.page__inner {
+  max-width: 100% !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+.page {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+}
+</style>
 
 
 {% for js in page.customjs %}
