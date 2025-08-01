@@ -8,7 +8,7 @@ customjs:
 ---
 
 
-<div id="repo-container" class="d-flex flex-column gap-3">
+<div id="repo-container" class="flex-grow-1 px-xl-1">
   <div class="card p-3">Loading...</div>
 </div>
 {% for js in page.customjs %}
