@@ -1,4 +1,4 @@
-fetch(`https://api.github.com/users/${username}/repos?sort=updated`)
+fetch(`https://api.github.com/users/dogujen/repos?sort=updated`)
     .then(res => res.json())
     .then(repos => {
       const container = document.getElementById("project-list");
