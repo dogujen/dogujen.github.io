@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: home
 title: Projects
 permalink: /projects/
 icon: fas fa-diagram-project
