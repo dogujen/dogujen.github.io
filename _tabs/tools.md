@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Tools
 permalink: /tools/
 icon: fas fa-tools

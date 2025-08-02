@@ -1,5 +1,5 @@
 ---
-layout: page
+layout: default
 title: Repositories
 permalink: /repositories/
 icon: fas fa-diagram-project
