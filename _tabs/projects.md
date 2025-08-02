@@ -8,25 +8,7 @@ customjs:
 ---
 
 
-<div id="project-list">
-  <article class="card-wrapper card">
-    <div class="card-body">
-      <p>Projects are on the way...</p>
-    </div>
-  </article>
-</div>
-<style>
-.page__inner {
-  max-width: 100% !important;
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-.page {
-  padding-left: 0 !important;
-  padding-right: 0 !important;
-}
-</style>
-
+<div id="archives" class="pl-xl-3"></div>
 
 {% for js in page.customjs %}
 <script async type="text/javascript" src="{{ js }}"></script>
