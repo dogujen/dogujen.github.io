@@ -2,7 +2,7 @@
 layout: post
 title: "Outbound HTB Writeup"
 date: 2025-07-20 13:54:00 +0300
-categories: [HTBs]
+categories: [HackTheBox, Machines]
 tags: [cybersecurity, hacking, hackthebox, machines,tryout]
 ---
 

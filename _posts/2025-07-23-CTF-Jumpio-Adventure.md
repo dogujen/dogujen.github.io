@@ -2,7 +2,7 @@
 layout: post
 title: "Jumpio Adventure CTF Writeup"
 date: 2025-07-26 01:18:00 +0300
-categories: [CTFs]
+categories: [HackTheBox, CTFs]
 tags: [cybersecurity, reverse, hackthebox, prolabs, stacksmash]
 ---
 

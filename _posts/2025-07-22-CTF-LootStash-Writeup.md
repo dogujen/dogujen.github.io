@@ -2,7 +2,7 @@
 layout: post
 title: "LootStash CTF Writeup"
 date: 2025-07-22 13:54:00 +0300
-categories: [CTFs]
+categories: [HackTheBox, CTFs]
 tags: [cybersecurity, reverse, hackthebox, prolabs,tryout]
 ---
 

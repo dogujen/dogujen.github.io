@@ -2,7 +2,7 @@
 layout: post
 title: "Cypher HTB Writeup"
 date: 2025-07-26 01:18:00 +0300
-categories: [HTBs]
+categories: [HackTheBox, Machines]
 tags: [cybersecurity, neo4j, hackthebox, cypher]
 ---
 # Cypher HTB WriteUp 

@@ -2,7 +2,7 @@
 layout: post
 title: "Dynamic Paths CTF Writeup"
 date: 2025-07-28 19:22:00 +0300
-categories: [CTFs]
+categories: [HackTheBox, CTFs]
 tags: [cybersecurity, coding, hackthebox, prolabs,tryout]
 ---
 
