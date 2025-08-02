@@ -13,11 +13,9 @@ tags: [cybersecurity, hacking, hackthebox, machines,tryout]
 Hello! Today I want to talk about a machine called **Outbound**. In my opinion, this machine was a great example of how important it is to keep up with cybersecurity news. In June 2025, the mail provider **cock.li** was hacked using a vulnerability identified as **CVE-2025-49113**.
 
 ## What is CVE-2025-49113?
-<blockquote class="prompt-warning"><p>
 
-CVE-2025-49113 is an authenticated remote code execution (RCE) vulnerability in Roundcube Webmail.
- 
- </p></blockquote>
+**CVE-2025-49113** is an authenticated remote code execution (RCE) vulnerability in Roundcube Webmail. 
+{: .prompt-tip }
 
 ## Writeup
 
