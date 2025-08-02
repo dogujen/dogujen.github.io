@@ -1,4 +1,4 @@
-fetch(`https://api.github.com/users/dogujen/repos?sort=updated`)
+fetch(`https://api.github.com/users/dogujen/repos`)
   .then(res => res.json())
   .then(repos => {
     const container = document.getElementById("archives");
