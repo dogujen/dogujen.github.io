@@ -1,4 +1,4 @@
-fetch(`https://api.github.com/users/dogujen/repos`)
+fetch(`https://api.github.com/users/dogujen/repos?sort=created`)
   .then(res => res.json())
   .then(repos => {
     const container = document.getElementById("archives");
