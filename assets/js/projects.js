@@ -5,7 +5,7 @@ fetch(`https://api.github.com/users/dogujen/repos?sort=created`)
     const grouped = {};
 
     repos.forEach(repo => {
-      const updated = new Date(repo.updated_at);
+      const updated = new Date(repo.created_at);
       const year = updated.getFullYear();
       if (!grouped[year]) grouped[year] = [];
       grouped[year].push({ repo, updated });
