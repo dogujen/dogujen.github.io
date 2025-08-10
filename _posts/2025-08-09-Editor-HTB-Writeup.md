@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Editor HTB Writeup"
-date: 2025-07-20 13:54:00 +0300
+date: 2025-08-011 13:21:00 +0300
 categories: [HackTheBox, Machines]
 tags: [cybersecurity, wikicms, hackthebox, machines,hacking]
 ---
