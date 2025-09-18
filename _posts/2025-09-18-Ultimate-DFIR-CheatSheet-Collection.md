@@ -6,6 +6,9 @@ categories: [Digital Forensics, Incident Response]
 tags: [dfir, forensics, incident-response, cheatsheet, cybersecurity, investigation, malware-analysis]
 ---
 
+> This cheatsheet is according to my knowledge. And I'm not that good in DFIR. :) 
+{: .prompt-warning } 
+
 # 🔍 Ultimate DFIR CheatSheet Collection
 
 In this article, I've compiled the most important cheatsheets and tools used in Digital Forensics and Incident Response (DFIR). This resource serves as a comprehensive guide for both beginners and experienced analysts.
@@ -15,20 +18,6 @@ In this article, I've compiled the most important cheatsheets and tools used in 
 
 ---
 
-## 📋 Table of Contents
-
-1. [Memory Forensics](#memory-forensics)
-2. [Network Forensics](#network-forensics)
-3. [Disk Forensics](#disk-forensics)
-4. [Windows Forensics](#windows-forensics)
-5. [Linux Forensics](#linux-forensics)
-6. [Mobile Forensics](#mobile-forensics)
-7. [Malware Analysis](#malware-analysis)
-8. [Log Analysis](#log-analysis)
-9. [Digital Evidence](#digital-evidence)
-10. [Incident Response](#incident-response)
-
----
 
 ## 🧠 Memory Forensics
 
