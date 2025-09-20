@@ -15,10 +15,9 @@ platforms:
     link: "https://t.me/share/url?url=URL&text=TITLE"
 
   # Uncomment below if you need to.
-  #
-  # - type: Linkedin
-  #   icon: "fab fa-linkedin"
-  #   link: "https://www.linkedin.com/feed/?shareActive=true&shareUrl=URL"
+  - type: Linkedin
+    icon: "fab fa-linkedin"
+    link: "https://www.linkedin.com/in/do%C4%9Fu-kervan-79504b382/"
   #
   # - type: Weibo
   #   icon: "fab fa-weibo"
