@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Ultimate Web Fuzzing CheatSheet Collection"
-date: 2026-02-07 19:30:00 +0300
+date: 2026-02-07 19:03:00 +0300
 categories: [Web Security, Penetration Testing]
 tags: [fuzzing, ffuf, gobuster, feroxbuster, api-security, cheatsheet, bug-bounty]
 ---
