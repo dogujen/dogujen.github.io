@@ -7,8 +7,6 @@ categories: [Web Security, Penetration Testing]
 tags: [fuzzing, ffuf, gobuster, feroxbuster, api-security, cheatsheet, bug-bounty]
 ---
 
-> This cheatsheet is based on the HTB Academy Web Fuzzing Module. [cite_start]It covers tools, wordlists, and API fuzzing techniques. [cite: 1, 5]
-{: .prompt-tip }
 
 # 🔍 Ultimate Web Fuzzing CheatSheet Collection
 
